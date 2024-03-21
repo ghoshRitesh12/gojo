@@ -8,9 +8,9 @@ import (
 // var domain_name = "anicrush"
 
 const (
-	BASE_URL      = "https://anicrush.to"
-	HOME_URL      = "https://anicrush.to/home"
-	AJAX_BASE_URL = "https://api.anicrush.to"
+	BASE_URL      string = "https://anicrush.to"
+	HOME_URL      string = "https://anicrush.to/home"
+	AJAX_BASE_URL string = "https://api.anicrush.to"
 )
 
 func NewAnicrushClient() *resty.Client {

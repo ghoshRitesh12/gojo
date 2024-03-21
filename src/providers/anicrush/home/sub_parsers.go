@@ -1,7 +1,6 @@
 package home
 
 import (
-	"github.com/ghoshRitesh12/gojo/src/config"
 	"github.com/ghoshRitesh12/gojo/src/providers/anicrush/utils"
 )
 
@@ -18,162 +17,119 @@ type ScrapedHomePage struct {
 	Genres                []Genre              `json:"genres"`
 }
 
-func (shp *ScrapedHomePage) GetMostFavoriteAnime() {
+func (p *HomePageParser) GetMostFavoriteAnime() {
 	data := &MostFavoriteAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/shared/v2/movie/mostFavorite?type=home"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.MostFavoriteAnimes = data.Result
+	p.Resp.MostFavoriteAnimes = data.Result
 }
 
-func (shp *ScrapedHomePage) GetTopAiringAnime() {
+func (p *HomePageParser) GetTopAiringAnime() {
 	data := &TopAiringAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/shared/v2/movie/topAiring?type=home"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.TopAiringAnimes = data.Result
+	p.Resp.TopAiringAnimes = data.Result
 }
 
-func (shp *ScrapedHomePage) GetSpotlightAnime() {
+func (p *HomePageParser) GetSpotlightAnime() {
 	data := &SpotlightAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/shared/v2/movie/spotlight"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.SpotlightAnimes = data.Result
+	p.Resp.SpotlightAnimes = data.Result
 }
 
-func (shp *ScrapedHomePage) GetRecentlyUpdatedAnime() {
+func (p *HomePageParser) GetRecentlyUpdatedAnime() {
 	data := &RecentlyUpdatedAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/shared/v2/movie/recentlyUpdated/home"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.RecentlyUpdatedAnimes = data.Result
+	p.Resp.RecentlyUpdatedAnimes = data.Result
 }
 
-func (shp *ScrapedHomePage) GetTrendingAnime() {
+func (p *HomePageParser) GetTrendingAnime() {
 	data := &TrendingAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/shared/v2/movie/trending"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.TrendingAnimes = data.Result
+	p.Resp.TrendingAnimes = data.Result
 }
 
-func (shp *ScrapedHomePage) GetRecentlyAddedAnime() {
+func (p *HomePageParser) GetRecentlyAddedAnime() {
 	data := &RecentlyAddedAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/shared/v2/movie/recentlyAdded/home"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.RecentlyAddedAnimes = data.Result
+	p.Resp.RecentlyAddedAnimes = data.Result
 }
 
-func (shp *ScrapedHomePage) GetTopViewedAnime() {
+func (p *HomePageParser) GetTopViewedAnime() {
 	data := &TopViewedAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/v1/movie/topViewed"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.TopViewedAnime = data.Result
+	p.Resp.TopViewedAnime = data.Result
 }
 
-func (shp *ScrapedHomePage) GetUpcomingAnime() {
+func (p *HomePageParser) GetUpcomingAnime() {
 	data := &UpcomingAnime{}
-	fallbackErr := config.NewHttpError(500)
 	url := utils.AJAX_BASE_URL + "/shared/v2/movie/upcoming/home"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetError(fallbackErr).
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.UpcomingAnimes = data.Result
+	p.Resp.UpcomingAnimes = data.Result
 }
 
-func (shp *ScrapedHomePage) GetAllGenres() {
+func (p *HomePageParser) GetAllGenres() {
 	data := &AllGenres{}
 	url := utils.AJAX_BASE_URL + "/shared/v1/genre/all"
 
-	client := utils.NewAnicrushClient().R().
-		SetHeader("X-Site", "anicrush").
-		SetResult(data)
-
-	res, err := client.Get(url)
+	res, err := p.client.R().
+		SetResult(data).Get(url)
 	if utils.CaptureSubParserErrs(res, err, url) {
 		return
 	}
 
-	shp.Genres = data.Result
+	p.Resp.Genres = data.Result
 }
